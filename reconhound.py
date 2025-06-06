@@ -292,7 +292,7 @@ class ReconHound:
             print(f"[-] Error saving results: {str(e)}")
 
 def main():
-    parser = argparse.ArgumentParser(description="DirHound - Advanced Web Reconnaissance Tool")
+    parser = argparse.ArgumentParser(description="ReconHound - Advanced Web Reconnaissance Tool")
     subparsers = parser.add_subparsers(dest='mode', required=True, help="Select a mode of operation")
 
     dir_parser = subparsers.add_parser('dir', help='Directory busting mode')
