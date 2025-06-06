@@ -206,9 +206,9 @@ class ReconHound:
                except Exception as e:
                       print(f"[-] Error reading wordlist with latin-1: {e}")
                       return
-       except FileNotFoundError:
-              print(f"[-] Error: Wordlist file '{wordlist}' not found")
-              return
+        except FileNotFoundError:
+               print(f"[-] Error: Wordlist file '{wordlist}' not found")
+               return
 
         with concurrent.futures.ThreadPoolExecutor(max_workers=threads) as executor:
             for word in words:
