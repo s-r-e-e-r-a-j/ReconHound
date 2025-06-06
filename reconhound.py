@@ -203,7 +203,7 @@ class ReconHound:
             with open(wordlist, 'r', encoding='utf-8') as f:
                   words = [line.strip() for line in f if line.strip()]
         except UnicodeDecodeError:
-               # fallback to latin-1 if utf-8 fails
+               # fallback to latin-1 if UTF-8 fails
                try:
                    with open(wordlist, 'r', encoding='latin-1') as f:
                          words = [line.strip() for line in f if line.strip()]
@@ -228,7 +228,7 @@ class ReconHound:
             with open(wordlist, 'r', encoding='utf-8') as f:
                  subdomains = [line.strip() for line in f if line.strip()]
         except UnicodeDecodeError:
-             # Fallback to latin-1 encoding
+             # Fallback to latin-1 encoding if UTF-8 fails
               try:
                   with open(wordlist, 'r', encoding='latin-1') as f:
                        subdomains = [line.strip() for line in f if line.strip()]
