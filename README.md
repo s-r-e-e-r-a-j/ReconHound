@@ -128,7 +128,7 @@ reconhound fuzz -u "https://example.com/page.php?id=FUZZ" -p id -w /path/to/word
 ```
 
 ```bash
-reconhound fuzz -u "https://example.com/login?username=admin&password=FUZZ" -w /path/to/wordlist/wordlist.txt -t 15 -o /path/to/save/fuzzany_results.json
+reconhound fuzz -u "https://example.com/login?username=admin&password=FUZZ"-p password -w /path/to/wordlist/wordlist.txt -t 15 -o /path/to/save/fuzzany_results.json
 ```
 
 
