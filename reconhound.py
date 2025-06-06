@@ -193,7 +193,11 @@ class ReconHound:
         self.target = url
         self.wordlist = wordlist
         self.threads = threads
-        self.extensions = extensions.split(',') if extensions else None
+        if extensions:
+           self.extensions = [ext if ext.startswith('.') else '.' + ext for ext in extensions.split(',')]
+        else:
+             self.extensions = None
+
         self.print_banner()
         try:
             with open(wordlist, 'r', encoding='utf-8') as f:
