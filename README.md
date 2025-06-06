@@ -130,7 +130,7 @@ reconhound fuzz -u https://example.com/page.php?id=FUZZ -p id -w /path/to/wordli
 
 **if url contains shell characters use double quotes.give url in double quotes**
 
-**Example**
+**Example:**
 
 
 ```bash
@@ -159,7 +159,7 @@ reconhound fuzzany -u https://example.com?FUZZ=admin -w /path/to/wordlist/wordli
 ```
 **if url contains shell characters use double quotes. give url in double quotes**
 
-**Example**
+**Example:**
 
 ```bash
 reconhound fuzzany -u "https://example.com/login?username=admin&password=FUZZ" -w /path/to/wordlist/wordlist.txt -t 15 -o /path/to/save/fuzzany_results.json
