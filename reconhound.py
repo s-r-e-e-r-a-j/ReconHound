@@ -251,12 +251,20 @@ class ReconHound:
         self.param = param
         self.print_banner()
         try:
-            with open(wordlist, 'r') as f:
-                values = [line.strip() for line in f if line.strip()]
+            with open(wordlist, 'r', encoding='utf-8') as f:
+                 values = [line.strip() for line in f if line.strip()]
+        except UnicodeDecodeError:
+               # Fallback to latin-1 encoding if UTF-8 fails
+               try:
+                   with open(wordlist, 'r', encoding='latin-1') as f:
+                        values = [line.strip() for line in f if line.strip()]
+               except Exception as e:
+                      print(f"[-] Error reading wordlist with latin-1: {e}")
+                      return
         except FileNotFoundError:
-            print(f"[-] Error: Wordlist file '{wordlist}' not found")
-            return
-
+               print(f"[-] Error: Wordlist file '{wordlist}' not found")
+               return
+            
         with concurrent.futures.ThreadPoolExecutor(max_workers=threads) as executor:
             for value in values:
                 executor.submit(self.fuzz_parameter, url, param, value)
