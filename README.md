@@ -59,6 +59,8 @@ reconhound [options]
 | `-t`, `--threads`    | Number of threads to use (default: 10)(optional)                  |
 | `-o`, `--output`     | File to save output results (JSON format,out.json)(optional)      |
 
+
+
 **Example:**
 
 ```bash
@@ -75,6 +77,9 @@ reconhound dir -u https://example.com -w /path/to/wordlist/wordlist.txt -e .php,
 | `-w`, `--wordlist` | Path to subdomain wordlist                                     |
 | `-t`, `--threads`  | Number of threads to use, default(10)(optional)                |
 | `-o`, `--output`   | File to save output results (JSON format,out.json)(optional)   |
+
+
+
 
 **Example:**
 
@@ -94,6 +99,8 @@ reconhound sub -d example.com -w /path/to/wordlist/wordlist.txt -t 30 -o /path/t
 | `-t`, `--threads`  | Number of threads to use, default:10 (optional)                                 |
 | `-o`, `--output`   | File to save output results (JSON format,out.json)(optional)                    |
 
+
+
 **Example:**
 
 ```bash
@@ -112,6 +119,9 @@ reconhound vhost -i 192.0.2.1 --domain example.com -w /path/to/wordlist/wordlist
 | `-t`, `--threads`  | Number of threads to use, default:10 (optional)                |
 | `-o`, `--output`   | File to save output results (JSON format,out.json)(optional)   |
 
+
+
+
 **Example:**
 
 ```bash
@@ -125,6 +135,7 @@ reconhound fuzz -u https://example.com/page.php?id=FUZZ -p id -w /path/to/wordli
 
 ```bash
 reconhound fuzz -u "https://example.com/login?username=admin&password=FUZZ" -w /path/to/wordlist/wordlist.txt -t 15 -o /path/to/save/fuzzany_results.json
+```
 
 
 **fuzzany – Fuzz Anywhere in URL**
@@ -135,6 +146,8 @@ reconhound fuzz -u "https://example.com/login?username=admin&password=FUZZ" -w /
 | `-w`, `--wordlist` | Wordlist for replacing `FUZZ`                                  |
 | `-t`, `--threads`  | Number of threads to use, default:10(optional)                 |
 | `-o`, `--output`   | File to save output results (JSON format,out.json)(optional)   |
+
+
 
 **Example:**
 
