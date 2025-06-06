@@ -196,11 +196,19 @@ class ReconHound:
         self.extensions = extensions.split(',') if extensions else None
         self.print_banner()
         try:
-            with open(wordlist, 'r') as f:
-                words = [line.strip() for line in f if line.strip()]
-        except FileNotFoundError:
-            print(f"[-] Error: Wordlist file '{wordlist}' not found")
-            return
+            with open(wordlist, 'r', encoding='utf-8') as f:
+                  words = [line.strip() for line in f if line.strip()]
+        except UnicodeDecodeError:
+         # fallback to latin-1 if utf-8 fails
+               try:
+                   with open(wordlist, 'r', encoding='latin-1') as f:
+                         words = [line.strip() for line in f if line.strip()]
+               except Exception as e:
+                      print(f"[-] Error reading wordlist with latin-1: {e}")
+                      return
+       except FileNotFoundError:
+              print(f"[-] Error: Wordlist file '{wordlist}' not found")
+              return
 
         with concurrent.futures.ThreadPoolExecutor(max_workers=threads) as executor:
             for word in words:
