@@ -1,5 +1,5 @@
 ##  ReconHound
-ReconHound is an Python-based web reconnaissance tool built for penetration testers, bug bounty hunters, and ethical hackers. It helps identify hidden paths, files, subdomains, query parameters, virtual hosts, and fuzzable endpoints — making it a versatile solution for deep web reconnaissance.
+ReconHound is a Python-based web reconnaissance tool built for penetration testers, bug bounty hunters, and ethical hackers. It helps identify hidden paths, files, subdomains, query parameters, virtual hosts, and fuzzable endpoints — making it a versatile solution for deep web reconnaissance.
 
 ##  Features
 - Multi-threaded scanning for high-speed web enumeration
