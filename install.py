@@ -8,7 +8,7 @@ choice = input('[+] to install press (Y) to uninstall press (N) >> ')
 run = os.system
 if str(choice) =='Y' or str(choice)=='y':
 
-    run('chmod 777 reconhound.py')
+    run('chmod 755 reconhound.py')
     run('mkdir /usr/share/reconhound')
     run('cp reconhound.py /usr/share/reconhound/reconhound.py')
 
