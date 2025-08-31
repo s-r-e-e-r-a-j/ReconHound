@@ -235,6 +235,7 @@ class ReconHound:
         self.target = domain
         self.wordlist = wordlist
         self.threads = threads
+        self.wildcard_ips = self.detect_subdomain_wildcard(domain)
         self.print_banner()
         try:
             with open(wordlist, 'r', encoding='utf-8') as f:
