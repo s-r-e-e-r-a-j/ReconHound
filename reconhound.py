@@ -41,7 +41,7 @@ class ReconHound:
         self.param = None
         self.output_file = None
         self.wildcard_ips = None
-        self.vhost_wildcard_size = None  # for vhost wildcard detection
+        self.vhost_wildcard_hashes = None  # for vhost wildcard detection
         signal.signal(signal.SIGINT, self.signal_handler)
 
     def detect_subdomain_wildcard(self, domain, tests=10):
@@ -218,7 +218,7 @@ class ReconHound:
             }
             response = requests.get(url, headers=headers, allow_redirects=False, timeout=5)
             response_hash = hashlib.md5(response.content).hexdigest()
-            if self.vhost_wildcard_size and response_hash in self.vhost_wildcard_size:
+            if self.vhost_wildcard_hashes and response_hash in self.vhost_wildcard_hashes:
                 return
             if response.status_code in [200, 204, 301, 302, 307, 401, 403]:
                 self.found_vhosts.append({
@@ -342,7 +342,7 @@ class ReconHound:
         self.target = f"{base_domain} @ {ip}"
         self.wordlist = wordlist
         self.threads = threads
-        self.vhost_wildcard_size = self.detect_vhost_wildcard(ip, base_domain)
+        self.vhost_wildcard_hashes = self.detect_vhost_wildcard(ip, base_domain)
         self.base_domain = base_domain
         self.ip_address = ip
         self.print_banner()
