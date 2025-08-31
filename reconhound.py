@@ -59,16 +59,22 @@ class ReconHound:
               return list(wildcard_ips.pop())
         return None
     
-
-    def detect_vhost_wildcard(self, ip, base_domain):
-         test_host = f"{random.randint(100000,999999)}.{base_domain}"
-         url = f"http://{ip}/"
-         headers = {'User-Agent': self.random_user_agent(), 'Host': test_host}
-         try:
-             response = requests.get(url, headers=headers, allow_redirects=False, timeout=5)
-             return len(response.content)
-         except requests.RequestException:
-                return None
+    def detect_vhost_wildcard(self, ip, base_domain, tests=5):
+        sizes = []
+        for _ in range(tests):
+            test_host = f"{random.randint(100000,999999)}.{base_domain}"
+            url = f"http://{ip}/"
+            headers = {'User-Agent': self.random_user_agent(), 'Host': test_host}
+            try:
+                response = requests.get(url, headers=headers, allow_redirects=False, timeout=5)
+                sizes.append(len(response.content))
+            except requests.RequestException:
+                   continue
+        # If all sizes are the same, it's a wildcard
+        if sizes and len(set(sizes)) == 1:
+           return sizes[0]
+        return None
+    
             
     def print_banner(self):
         print("===============================================================")
