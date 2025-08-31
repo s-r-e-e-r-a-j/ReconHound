@@ -9,6 +9,7 @@ import concurrent.futures
 import random
 import sys
 import time
+import hashlib
 import json
 import signal
 from urllib.parse import urlparse
@@ -43,7 +44,7 @@ class ReconHound:
         self.vhost_wildcard_size = None  # for vhost wildcard detection
         signal.signal(signal.SIGINT, self.signal_handler)
 
-    def detect_subdomain_wildcard(self, domain, tests=5):
+    def detect_subdomain_wildcard(self, domain, tests=10):
         wildcard_ips = set()
         for _ in range(tests):
             test_sub = f"{random.randint(100000,999999)}.{domain}"
@@ -59,22 +60,22 @@ class ReconHound:
               return list(wildcard_ips.pop())
         return None
     
-    def detect_vhost_wildcard(self, ip, base_domain, tests=5):
-        sizes = []
+    def detect_vhost_wildcard(self, ip, base_domain, tests=10):
+        content_hashes = []
         for _ in range(tests):
             test_host = f"{random.randint(100000,999999)}.{base_domain}"
             url = f"http://{ip}/"
             headers = {'User-Agent': self.random_user_agent(), 'Host': test_host}
             try:
                 response = requests.get(url, headers=headers, allow_redirects=False, timeout=5)
-                sizes.append(len(response.content))
+                content_hashes.append(hashlib.md5(response.content).hexdigest())
             except requests.RequestException:
                    continue
-        # If all sizes are the same, it's a wildcard
-        if sizes and len(set(sizes)) == 1:
-           return sizes[0]
+        # If all hashes are identical, it indicates a wildcard
+        if content_hashes and all(h == content_hashes[0] for h in content_hashes):
+            return content_hashes[0]
         return None
-                
+                    
     def print_banner(self):
         print("===============================================================")
         print(f" ReconHound on {self.current_mode} mode")
