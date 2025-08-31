@@ -65,8 +65,7 @@ class ReconHound:
              return len(response.content)
          except requests.RequestException:
                 return None
-        
-    
+            
     def print_banner(self):
         print("===============================================================")
         print(f" ReconHound on {self.current_mode} mode")
