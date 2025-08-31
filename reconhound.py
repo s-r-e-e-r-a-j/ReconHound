@@ -71,11 +71,9 @@ class ReconHound:
                 content_hashes.append(hashlib.md5(response.content).hexdigest())
             except requests.RequestException:
                    continue
-        # If all hashes are identical, it indicates a wildcard
-        if content_hashes and all(h == content_hashes[0] for h in content_hashes):
-            return content_hashes[0]
-        return None
-                    
+        # Return the set of all hashes (even if all identical)
+        return content_hashes if content_hashes else None
+                   
     def print_banner(self):
         print("===============================================================")
         print(f" ReconHound on {self.current_mode} mode")
@@ -218,7 +216,8 @@ class ReconHound:
                 'Host': test_host
             }
             response = requests.get(url, headers=headers, allow_redirects=False, timeout=5)
-            if self.vhost_wildcard_size and hashlib.md5(response.content).hexdigest() == self.vhost_wildcard_size:
+            response_hash = hashlib.md5(response.content).hexdigest()
+            if self.vhost_wildcard_size and response_hash in self.vhost_wildcard_size:
                 return
             if response.status_code in [200, 204, 301, 302, 307, 401, 403]:
                 self.found_vhosts.append({
