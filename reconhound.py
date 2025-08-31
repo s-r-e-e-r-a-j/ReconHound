@@ -61,19 +61,20 @@ class ReconHound:
         return None
     
     def detect_vhost_wildcard(self, ip, base_domain, tests=10):
-        content_hashes = set()
+        content_hashes = []
         for _ in range(tests):
             test_host = f"{random.randint(100000,999999)}.{base_domain}"
             url = f"http://{ip}/"
             headers = {'User-Agent': self.random_user_agent(), 'Host': test_host}
             try:
                 response = requests.get(url, headers=headers, allow_redirects=False, timeout=5)
-                content_hashes.add(hashlib.md5(response.content).hexdigest())
+                content_hashes.append(hashlib.md5(response.content).hexdigest())
             except requests.RequestException:
                    continue
-        # Return the set of all hashes (even if all identical)
-        return content_hashes if content_hashes else None
-                   
+        if content_hashes and len(set(content_hashes)) == 1:
+            return set(content_hashes)
+        return None 
+        
     def print_banner(self):
         print("===============================================================")
         print(f" ReconHound on {self.current_mode} mode")
