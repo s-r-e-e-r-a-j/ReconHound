@@ -39,6 +39,8 @@ class ReconHound:
         self.extensions = None
         self.param = None
         self.output_file = None
+        self.wildcard_ips = None
+        self.vhost_wildcard_size = None  # for vhost wildcard detection
         signal.signal(signal.SIGINT, self.signal_handler)
 
     def detect_subdomain_wildcard(self, domain):
