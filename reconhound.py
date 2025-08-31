@@ -158,8 +158,10 @@ class ReconHound:
             full_domain = f"{subdomain}.{domain}"
             answers = dns.resolver.resolve(full_domain, 'A')
             ips = [r.to_text() for r in answers]
-            if hasattr(self, 'wildcard_ips') and self.wildcard_ips and all(ip in self.wildcard_ips for ip in ips):
-                return
+            if hasattr(self, 'wildcard_ips') and self.wildcard_ips:
+                # Skip only if all IPs exactly match the wildcard set
+                if set(ips) == set(self.wildcard_ips):
+                    return         
             if answers:
                 self.found_subdomains.append(full_domain)
                 print(f"[+] Found: {full_domain}")
