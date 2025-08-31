@@ -329,6 +329,7 @@ class ReconHound:
         self.target = f"{base_domain} @ {ip}"
         self.wordlist = wordlist
         self.threads = threads
+        self.vhost_wildcard_size = self.detect_vhost_wildcard(ip, base_domain)
         self.base_domain = base_domain
         self.ip_address = ip
         self.print_banner()
