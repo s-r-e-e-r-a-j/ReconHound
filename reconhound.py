@@ -54,7 +54,19 @@ class ReconHound:
                  return wildcard_ips
         except (dns.resolver.NXDOMAIN, dns.resolver.NoAnswer, dns.resolver.Timeout):
                return None
+
+    def detect_vhost_wildcard(self, ip, base_domain):
+         test_host = f"{random.randint(100000,999999)}.{base_domain}"
+         url = f"http://{ip}/"
+         headers = {'User-Agent': self.random_user_agent(), 'Host': test_host}
+         try:
+             response = requests.get(url, headers=headers, allow_redirects=False, timeout=5)
+             print(f"[!] Wildcard VHOST detected for {base_domain}, default size: {len(response.content)}")
+             return len(response.content)
+         except requests.RequestException:
+                return None
         
+    
     def print_banner(self):
         print("===============================================================")
         print(f" ReconHound on {self.current_mode} mode")
