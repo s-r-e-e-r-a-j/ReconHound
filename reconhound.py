@@ -50,7 +50,6 @@ class ReconHound:
              answers = dns.resolver.resolve(test_sub, 'A')
              if answers:
                  wildcard_ips = [r.to_text() for r in answers]
-                 print(f"[!] Wildcard DNS detected on {domain} -> IPs: {wildcard_ips}")
                  return wildcard_ips
          except (dns.resolver.NXDOMAIN, dns.resolver.NoAnswer, dns.resolver.Timeout):
                 return None
@@ -61,7 +60,6 @@ class ReconHound:
          headers = {'User-Agent': self.random_user_agent(), 'Host': test_host}
          try:
              response = requests.get(url, headers=headers, allow_redirects=False, timeout=5)
-             print(f"[!] Wildcard VHOST detected for {base_domain}, default size: {len(response.content)}")
              return len(response.content)
          except requests.RequestException:
                 return None
