@@ -43,16 +43,22 @@ class ReconHound:
         self.vhost_wildcard_size = None  # for vhost wildcard detection
         signal.signal(signal.SIGINT, self.signal_handler)
 
-    def detect_subdomain_wildcard(self, domain):
-         # Generate a random subdomain
-         test_sub = f"{random.randint(100000,999999)}.{domain}"
-         try:
-             answers = dns.resolver.resolve(test_sub, 'A')
-             if answers:
-                 wildcard_ips = [r.to_text() for r in answers]
-                 return wildcard_ips
-         except (dns.resolver.NXDOMAIN, dns.resolver.NoAnswer, dns.resolver.Timeout):
-                return None
+    def detect_subdomain_wildcard(self, domain, tests=5):
+        wildcard_ips = set()
+        for _ in range(tests):
+            test_sub = f"{random.randint(100000,999999)}.{domain}"
+            try:
+                answers = dns.resolver.resolve(test_sub, 'A')
+                if answers:
+                    ips = tuple(r.to_text() for r in answers)
+                    wildcard_ips.add(ips)
+            except (dns.resolver.NXDOMAIN, dns.resolver.NoAnswer, dns.resolver.Timeout):
+                   continue
+        # If all tests resolve to the same IPs, it's a wildcard
+        if len(wildcard_ips) == 1:
+              return list(wildcard_ips.pop())
+        return None
+    
 
     def detect_vhost_wildcard(self, ip, base_domain):
          test_host = f"{random.randint(100000,999999)}.{base_domain}"
