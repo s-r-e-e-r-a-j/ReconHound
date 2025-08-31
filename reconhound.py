@@ -50,7 +50,7 @@ class ReconHound:
             try:
                 answers = dns.resolver.resolve(test_sub, 'A')
                 if answers:
-                    ips = tuple(r.to_text() for r in answers)
+                    ips = frozenset(r.to_text() for r in answers)
                     wildcard_ips.add(ips)
             except (dns.resolver.NXDOMAIN, dns.resolver.NoAnswer, dns.resolver.Timeout):
                    continue
