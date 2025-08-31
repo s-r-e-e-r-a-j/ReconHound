@@ -44,16 +44,16 @@ class ReconHound:
         signal.signal(signal.SIGINT, self.signal_handler)
 
     def detect_subdomain_wildcard(self, domain):
-        # Generate a random subdomain
-        test_sub = f"{random.randint(100000,999999)}.{domain}"
-        try:
+         # Generate a random subdomain
+         test_sub = f"{random.randint(100000,999999)}.{domain}"
+         try:
              answers = dns.resolver.resolve(test_sub, 'A')
              if answers:
                  wildcard_ips = [r.to_text() for r in answers]
                  print(f"[!] Wildcard DNS detected on {domain} -> IPs: {wildcard_ips}")
                  return wildcard_ips
-        except (dns.resolver.NXDOMAIN, dns.resolver.NoAnswer, dns.resolver.Timeout):
-               return None
+         except (dns.resolver.NXDOMAIN, dns.resolver.NoAnswer, dns.resolver.Timeout):
+                return None
 
     def detect_vhost_wildcard(self, ip, base_domain):
          test_host = f"{random.randint(100000,999999)}.{base_domain}"
