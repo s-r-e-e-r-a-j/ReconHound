@@ -216,7 +216,7 @@ class ReconHound:
                 'Host': test_host
             }
             response = requests.get(url, headers=headers, allow_redirects=False, timeout=5)
-            if hasattr(self, 'vhost_wildcard_size') and self.vhost_wildcard_size and len(response.content) == self.vhost_wildcard_size:
+            if self.vhost_wildcard_size and hashlib.md5(response.content).hexdigest() == self.vhost_wildcard_size:
                 return
             if response.status_code in [200, 204, 301, 302, 307, 401, 403]:
                 self.found_vhosts.append({
