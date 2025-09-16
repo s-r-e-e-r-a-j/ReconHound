@@ -24,7 +24,7 @@ ReconHound is a Python-based web reconnaissance tool built for penetration teste
 ReconHound should be used responsibly and legally. Unauthorized use of this tool to scan, fuzz, or test websites without explicit permission is illegal and unethical. The author is not responsible for any misuse or legal consequences resulting from the use of this tool.
 
 ## Compatibility
-- Linux (Debian, RedHat, Arch) 
+- Linux (Debian, RHEL, Arch) 
 
 ## Installation
 **1. Clone the repository:**
