@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
 # ReconHound - Advanced tool for Directory & File Enumeration,subdomian enumeration,fuzzing, vhost discovery
-# Author: Sreeraj (https://github.com/s-r-e-e-r-a-j)
+# Developer: Sreeraj 
+# GitHub: https://github.com/s-r-e-e-r-a-j
 
 import argparse
 import requests
