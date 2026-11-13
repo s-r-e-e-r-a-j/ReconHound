@@ -16,6 +16,7 @@ import signal
 from urllib.parse import urlparse
 import dns.resolver
 
+
 class ReconHound:
     def __init__(self):
         self.user_agents = [
@@ -88,11 +89,11 @@ class ReconHound:
         elif self.current_mode == 'fuzz':
             print(f"[+] Parameter:      {self.param}")
         elif self.current_mode == 'fuzzany':
-            print(f"[+] Fuzzing all 'FUZZ' tokens in URL")
+            print("[+] Fuzzing all 'FUZZ' tokens in URL")
         elif self.current_mode == 'vhost':
             print(f"[+] Base Domain:    {self.base_domain}")
             print(f"[+] IP Address:    {self.ip_address}")
-        print(f"[+] Status codes:   200,204,301,302,307,401,403")
+        print("[+] Status codes:   200,204,301,302,307,401,403")
         print("===============================================================")
         print("Developed By Sreeraj | GitHub: https://github.com/s-r-e-e-r-a-j")
         print("===============================================================\n")
